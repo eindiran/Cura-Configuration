@@ -15,6 +15,16 @@ G29 ; Auto bed-level (BL-Touch)
 M420 S1 ; Reenables bed-leveling (use mesh)
 M412 S0 ; Disable filament runout sensing
 
+; PID Autotune Bed
+M117 Running PID autotune for bed: {material_bed_temperature}
+M303 E-1 C8 S{material_bed_temperature} U1
+; PID Autotune Hotend
+M117 Running PID autotune for hotend: {material_print_temperature}
+M303 E0 C8 S{material_print_temperature} U1
+
+; This should be extremely fast (ie no wait at all)
+; given that we just ran the PID autotune, but its best to be
+; sure that the hotend is at temperature.
 M117 Heating hotend to {material_print_temperature}
 M104 S{material_print_temperature} ; Heat up the hotend
 M109 S{material_print_temperature} ; Wait to continue until the hotend is finished heating.
